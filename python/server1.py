@@ -11,8 +11,8 @@ LOG_INFO='LOG_INFO'
 
 class Server(object):
     def __init__(self):
-        self._sock = socket.socket()
-        self._sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self._socket = socket.socket()
+        self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self._host = self._sock.getsockname()
         print('%s local host name: %s' %(LOG_INFO, self._host));
         self._sock.bind((HOST, PORT))
@@ -27,8 +27,9 @@ class Server(object):
         while True:
             conn, addr = self._sock.accept()
             print('%s peer host: %s' %(LOG_INFO, conn))
-            conn.send('hello world!\n')
-            break;
+            for x in range(0, 6):
+                conn.send('hello world!\n')
+                #break;
 
 if __name__ == '__main__':
     s1 = Server()
